@@ -2,6 +2,10 @@
 
 {% block body %}
     <div {{ react_component('Home') }}>
-        Loading...
+        <div class="loader_wrapper">
+            <div class="loader">
+                <div class="circle"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}
