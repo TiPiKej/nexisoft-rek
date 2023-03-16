@@ -41,21 +41,32 @@ function Internship(props) {
   }, [companyName, start, end]);
 
   return (
-    <Grid container justifyContent="space-between" alignItems="center" sx={{ marginTop: 2 }}>
+    <Grid
+      container
+      justifyContent="space-between"
+      alignItems="center"
+      sx={{ marginTop: 2 }}
+    >
       <Grid item xs={5}>
         <TextField
           label="Nazwa firmy"
           variant="standard"
           required
           fullWidth
+          name="internship-companyNames[]"
           {...bindCompanyName}
         />
       </Grid>
       <Grid item xs={3}>
-        <DatePicker label="Od" required {...bindStart} />
+        <DatePicker
+          label="Od"
+          name="internship-from[]"
+          required
+          {...bindStart}
+        />
       </Grid>
       <Grid item xs={3}>
-        <DatePicker label="Do" required {...bindEnd} />
+        <DatePicker label="Do" name="internship-to[]" required {...bindEnd} />
       </Grid>
       <Grid item xs="auto">
         <IconButton onClick={props.handleDelete}>

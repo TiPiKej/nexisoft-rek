@@ -36,6 +36,7 @@ function Form() {
     educationOptions[0].value
   );
   const [internships, setInternships] = useState([]);
+  const [extraAttachments, setExtraAttachments] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +50,7 @@ function Form() {
     console.log(education);
     console.log(internships);
 
-    // e.currentTarget.submit();
+    e.currentTarget.submit();
   };
 
   const isValidatedOk = () => {
@@ -82,6 +83,22 @@ function Form() {
     setInternships(temp);
   };
 
+  const handleAddAttachment = () => {
+    setExtraAttachments((extraAttachments) => [
+      ...extraAttachments,
+      <TextField
+        type="file"
+        name="extraAttachments[]"
+        fullWidth
+        // required
+        // inputProps={{ accept: ".jpg, .pdf, .doc" }}
+        key={`extraAttachment-${extraAttachments.length}-${parseInt(
+          Math.random() * 1000
+        )}`}
+      />,
+    ]);
+  };
+
   return (
     <Grid
       container
@@ -89,7 +106,8 @@ function Form() {
       spacing={2}
       component="form"
       onSubmit={handleSubmit}
-      // action="test"
+      action="submit-form"
+      encType="multipart/form-data"
       sx={{ width: "100%", height: "100%" }}
     >
       <Grid item>
@@ -98,6 +116,7 @@ function Form() {
           variant="standard"
           fullWidth
           required
+          name="name"
           {...bindName}
         />
       </Grid>
@@ -107,6 +126,7 @@ function Form() {
           variant="standard"
           fullWidth
           required
+          name="surname"
           {...bindSurname}
         />
       </Grid>
@@ -115,6 +135,7 @@ function Form() {
           sx={{ width: "100%" }}
           label="Data urodzenia"
           required
+          name="birthDate"
           {...bindBirthDate}
         />
       </Grid>
@@ -125,15 +146,49 @@ function Form() {
           type="email"
           fullWidth
           required
+          name="email"
           {...bindEmail}
         />
       </Grid>
+      <Grid item>
+        <Typography variant="h6">LM</Typography>
+        <TextField
+          type="file"
+          name="LM"
+          fullWidth
+          required
+          inputProps={{ accept: ".jpg, .pdf, .doc" }}
+        />
+      </Grid>
+      <Grid item>
+        <Typography variant="h6">CV</Typography>
+        <TextField
+          type="file"
+          name="CV"
+          fullWidth
+          required
+          inputProps={{ accept: ".jpg, .pdf, .doc" }}
+        />
+      </Grid>
+      <Grid item>
+        <Button onClick={handleAddAttachment} fullWidth variant="outlined">
+          Dodaj kolejny załącznik
+        </Button>
+      </Grid>
+      {!!extraAttachments.length && (
+        <Grid item container flexDirection="column">
+          {extraAttachments.map((extraAttachment) => (
+            <Grid item>{extraAttachment}</Grid>
+          ))}
+        </Grid>
+      )}
       <Grid item>
         <FormControl fullWidth variant="standard">
           <InputLabel id="select-education">Wykształcenie</InputLabel>
           <Select
             labelId="select-education"
             label="Wykształcenie"
+            name="education"
             {...bindEducation}
           >
             {educationOptions.map((educationOption) => (
