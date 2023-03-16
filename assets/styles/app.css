@@ -1,6 +1,6 @@
 
 :root{
-    --primary_color: #03A9F4;
+    --primary_color: #1976d2;
 	--primary_color_second_way: #4FC3F7;
     --primary_color_third_way: #0288D1;
     --primary_color_fourth_way: #B3E5FC;
@@ -25,15 +25,13 @@
 *{
 	margin: 0;
 	padding: 0;
-	font-size: 30px;
     box-sizing: border-box;
-    font-family: 'Ubuntu', sans-serif;
 }
 
 .loader_wrapper{
-			height: 100vh;
+	height: 100vh;
 	min-height: 80vmin;
-			width: 100vw;
+	width: 100vw;
 	min-width: 80vmin;
 	z-index: 99999;
 
@@ -79,8 +77,8 @@
 
 
 	-webkit-animation: loader_circle var(--loader_speed) linear infinite;
-			 -o-animation: loader_circle var(--loader_speed) linear infinite;
-					animation: loader_circle var(--loader_speed) linear infinite;
+	-o-animation: loader_circle var(--loader_speed) linear infinite;
+	animation: loader_circle var(--loader_speed) linear infinite;
 }
 
 @keyframes loader_circle{
