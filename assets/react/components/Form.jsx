@@ -23,9 +23,9 @@ const InternshipTitle = styled(Box)(({ theme }) => ({
 
 function Form() {
   const educationOptions = [
-    { value: 1, label: "Podstawowe" },
-    { value: 2, label: "Średnie" },
-    { value: 3, label: "Wyższe" },
+    { value: "primary", label: "Podstawowe" },
+    { value: "secondary", label: "Średnie" },
+    { value: "higher", label: "Wyższe" },
   ];
 
   const { value: name, bindValue: bindName } = useInput("");
@@ -108,6 +108,7 @@ function Form() {
       onSubmit={handleSubmit}
       action="submit-form"
       encType="multipart/form-data"
+      method="POST"
       sx={{ width: "100%", height: "100%" }}
     >
       <Grid item>
@@ -136,8 +137,10 @@ function Form() {
           label="Data urodzenia"
           required
           name="birthDate"
+          format="YYYY-MM-DD"
           {...bindBirthDate}
         />
+        <input type="hidden" name="birthDate" value={birthDate} />
       </Grid>
       <Grid item>
         <TextField

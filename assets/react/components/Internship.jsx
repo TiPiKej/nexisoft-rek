@@ -21,9 +21,9 @@ function Internship(props) {
     bindValue: bindEnd,
   } = useDatepicker(props.end ?? "");
 
-  useEffect(() => setCompanyName(props.companyName), [props.companyName]);
-  useEffect(() => setStart(props.start), [props.start]);
-  useEffect(() => setEnd(props.end), [props.end]);
+  // useEffect(() => setCompanyName(props.companyName), [props.companyName]);
+  // useEffect(() => setStart(props.start ?? ""), [props.start]);
+  // useEffect(() => setEnd(props.end ?? ""), [props.end]);
 
   useEffect(() => {
     if (
@@ -60,13 +60,20 @@ function Internship(props) {
       <Grid item xs={3}>
         <DatePicker
           label="Od"
-          name="internship-from[]"
           required
+          format="YYYY-MM-DD"
           {...bindStart}
         />
+        <input type="hidden" name="internship-from[]" value={start} />
       </Grid>
       <Grid item xs={3}>
-        <DatePicker label="Do" name="internship-to[]" required {...bindEnd} />
+        <DatePicker
+          label="Do"
+          required
+          format="YYYY-MM-DD"
+          {...bindEnd}
+        />
+        <input type="hidden" name="internship-to[]" value={end} />
       </Grid>
       <Grid item xs="auto">
         <IconButton onClick={props.handleDelete}>
