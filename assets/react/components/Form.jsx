@@ -14,6 +14,8 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { useDatepicker, useInput, useSelect } from "../hooks";
 import Internship from "./Internship";
 import { styled } from "@mui/system";
+import { toast } from "react-toastify";
+import dayjs from "dayjs";
 
 const InternshipTitle = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -41,20 +43,64 @@ function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    isValidatedOk();
-
-    console.log(name);
-    console.log(surname);
-    console.log(birthDate);
-    console.log(email);
-    console.log(education);
-    console.log(internships);
+    if (!isValidatedOk()) return;
 
     e.currentTarget.submit();
   };
 
   const isValidatedOk = () => {
-    // TODO dodac walidacje
+    if (name.length === 0) {
+      toast("Uzupełnij imie");
+      return false;
+    }
+
+    if (name.length > 50) {
+      toast("Imię musi mieć max 50 znaków");
+      return false;
+    }
+
+    if (surname.length === 0) {
+      toast("Uzupełnij nazwisko");
+      return false;
+    }
+
+    if (surname.length > 50) {
+      toast("Nazwisko musi mieć max 50 znaków");
+      return false;
+    }
+    
+    if (!dayjs(birthDate).isValid()) {
+      toast("Podaj poprawną datę urodzenia");
+      return false;
+    }
+
+    const emailReg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    if (!emailReg.test(email)) {
+      toast("Wpisz poprawny adres email");
+      return false;
+    }
+
+    for (const internship of internships) {
+      if (internship.companyName.length === 0) {
+        toast("Uzupełnij nazwę firmy stażowej");
+        return false;
+      }
+
+      if (internship.companyName.length > 50) {
+        toast("Nazwa firmy stażowej musi mieć max 50 znaków");
+        return false;
+      }
+
+      if (!dayjs(internship.start).isValid()) {
+        toast("Podaj poprawną datę rozpoczęcia stażu");
+        return false;
+      }
+
+      if (!dayjs(internship.end).isValid()) {
+        toast("Podaj poprawną datę zakończenia stażu");
+        return false;
+      }
+    }
 
     return true;
   };
